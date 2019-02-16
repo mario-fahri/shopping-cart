@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {};
   }
   render() {
@@ -10,11 +10,21 @@ class Cart extends Component {
       <div>
         <h1>Your Cart</h1>
         <ul>
-          <li>
-            {this.props.cart.map(item => {
-              return item.name;
-            })}
-          </li>
+          {this.props.cart.map((item, index) => {
+            return (
+              <li key={index}>
+                {item.name} <button>-</button>{' '}
+                <button
+                  onClick={() => {
+                    this.props.quantityIncrement(item.id);
+                  }}
+                >
+                  +
+                </button>{' '}
+                Quantity: {this.props.cartProductQuantity}
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
