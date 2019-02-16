@@ -19,18 +19,11 @@ class Content extends Component {
   }
 
   addProduct = id => {
-    const updateCart = this.state.productList.find(item => {
-      let result = '';
-      if (item.id === id) {
-        result = item;
-      }
-      return result;
-
-      //   return item.id === id;
+    const updateCart = this.state.productList.filter(item => {
+      return item.id === id;
     });
 
-    const newCart = this.state.cart.concat(updateCart);
-    console.log(newCart);
+    const newCart = this.state.cart.concat(updateCart[0]);
     this.setState({ cart: newCart });
   };
 
