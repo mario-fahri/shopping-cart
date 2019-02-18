@@ -1,95 +1,80 @@
 import React, { Component } from 'react';
-import ProductList from './ProductList';
+import Products from './Products';
+import { Container, Row, Col } from 'reactstrap';
+import Tomato from '../images/tomato.svg';
+import Grape from '../images/grape.svg';
+import Pineapple from '../images/pineapple.svg';
 import Cart from './Cart';
-import Tomato from '../img/tomato.svg';
-import Grape from '../img/grape.svg';
-import Pineapple from '../img/pineapple.svg';
+
+const containerStyle = {
+  textAlign: 'center'
+};
+
+const colStyle = {
+  border: '1px solid black',
+  textAlign: 'center'
+};
 
 class Content extends Component {
   constructor() {
     super();
     this.state = {
-      productList: [
-        { id: 1, name: 'tomato', price: 30, image: Tomato, quantity: 0 },
-        { id: 2, name: 'grape', price: 35, image: Grape, quantity: 0 },
-        { id: 3, name: 'pineapple', price: 50, image: Pineapple, quantity: 0 }
+      products: [
+        { id: 1, name: 'Tomato', value: 0, image: Tomato },
+        { id: 2, name: 'Grape', value: 0, image: Grape },
+        { id: 3, name: 'Pineapple', value: 0, image: Pineapple }
       ],
-      cart: [],
-      cartProductQuantity: []
+      cart: []
     };
   }
 
-  addProduct = id => {
-    // const updateCart = this.state.productList.find(item => {
-    //   let result = '';
-    //   if (item.id === id) {
-    //     result = item;
-    //   }
-    //   return result;
-
-    //   //   return item.id === id;
-    // });
-
-    // const newCart = this.state.cart.concat(updateCart);
-    // // console.log(newCart);
-    // this.setState({ cart: newCart });
-    const updateCart = this.state.productList.filter(item => {
-      return item.id === id;
+  handleAdd = id => {
+    const products = this.state.products.filter(product => {
+      return product.id === id;
     });
 
-    const newCart = this.state.cart.concat(updateCart[0]);
-    this.setState({ cart: newCart });
+    const cart = this.state.cart.concat(products[0]);
+    this.setState({ cart });
   };
 
-  quantityIncrement = id => {
-    const increment = this.state.cart.map(item => {
-      if (item.id === id) {
-        return (item.quantity = item.quantity + 1);
-      }
+  handleIncrement = cart => {
+    const carts = [...this.state.cart];
+    const index = carts.indexOf(cart);
+    carts[index] = { ...cart };
+    carts[index].value++;
+    this.setState({ cart: carts });
+  };
+
+  handleDelete = id => {
+    const carts = this.state.cart.filter(product => {
+      return product.id !== id;
     });
-
-    let updateQuantity = this.state.cartProductQuantity.concat(increment);
-    this.setState({ cartProductQuantity: increment });
-
-    // let getSelectedCartId = this.state.cart.filter(item => {
-    //   return item.id === id;
-    // });
-
-    // let inc = this.state.cartProductQuantity.concat(
-    //   getSelectedCartId[0].quantity
-    // );
-
-    // this.setState({ cartProductQuantity: inc });
-
-    // const updateProductQuantity = this.state.cartProductQuantity.push(
-    //   getSelectedCartId[0].quantity
-    // );
-    //console.log(this.state.cartProductQuantity);
-    // let increment = this.state.cartProductQuantity.push(
-    //   getSelectedCartId[0].quantity
-    // );
-    // const updateProductQuantity = this.state.cartProductQuantity.concat(
-    //   increment
-    // );
-    // let increments = this.state.cartProductQuantity.map(item => {
-    // return item + 1;
-    // });
-    //this.setState({ cartProductQuantity: updateProductQuantity });
+    this.setState({ cart: carts });
   };
 
   render() {
     return (
-      <div>
-        <ProductList
-          productList={this.state.productList}
-          addProduct={this.addProduct}
-        />
-        <Cart
-          cart={this.state.cart}
-          quantityIncrement={this.quantityIncrement}
-          cartProductQuantity={this.state.cartProductQuantity}
-        />
-      </div>
+      <Container style={containerStyle}>
+        <Row>
+          <Col style={colStyle}>
+            <h1>Products</h1>
+            <Products
+              products={this.state.products}
+              handleAdd={this.handleAdd}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col style={colStyle}>
+            <h1>Your Cart</h1>
+            <Cart
+              cart={this.state.cart}
+              handleIncrement={this.handleIncrement}
+              handleDelete={this.handleDelete}
+            />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

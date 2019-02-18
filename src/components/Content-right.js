@@ -25,6 +25,19 @@ class Content extends Component {
 
     const newCart = this.state.cart.concat(updateCart[0]);
     this.setState({ cart: newCart });
+    // const updateCart = this.state.productList.find(item => {
+    //   let result = '';
+    //   if (item.id === id) {
+    //     result = item;
+    //   }
+    //   return result;
+
+    //   //   return item.id === id;
+    // });
+
+    // const newCart = this.state.cart.concat(updateCart);
+    // // console.log(newCart);
+    // this.setState({ cart: newCart });
   };
 
   render() {
