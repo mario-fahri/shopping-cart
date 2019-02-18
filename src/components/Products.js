@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Card,
   Button,
@@ -6,7 +6,7 @@ import {
   CardTitle,
   CardDeck,
   CardBody
-} from 'reactstrap';
+} from 'reactstrap'
 
 class Products extends Component {
   render() {
@@ -20,13 +20,13 @@ class Products extends Component {
                 width="50%"
                 height="50%"
                 src={product.image}
-                alt=""
+                alt={product.name}
               />
               <CardBody>
                 <CardTitle>{product.name}</CardTitle>
                 <Button
                   onClick={() => {
-                    this.props.handleAdd(product.id);
+                    this.props.handleAdd(product.id)
                   }}
                   color="primary"
                 >
@@ -34,11 +34,11 @@ class Products extends Component {
                 </Button>
               </CardBody>
             </Card>
-          );
+          )
         })}
       </CardDeck>
-    );
+    )
   }
 }
 
-export default Products;
+export default Products

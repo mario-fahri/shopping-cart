@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Button, Badge } from 'reactstrap';
+import React, { Component } from 'react'
+import { Button, Badge } from 'reactstrap'
 
 const divStyle = {
   marginBottom: '10px'
-};
+}
 
 const badgeStyle = {
   fontSize: '16px'
-};
+}
 
 const imgStyle = {
   height: '32px',
   width: '32px'
-};
+}
 
 class Cart extends Component {
   render() {
@@ -26,13 +26,13 @@ class Cart extends Component {
               <Button
                 color="secondary"
                 size="sm"
-                onClick={() => this.props.handleIncrement(product)}
+                onClick={() => this.props.handleIncrement(product.id)}
               >
                 +
               </Button>{' '}
               <span className="m-2">Quantity:</span>
               <Badge style={badgeStyle} color="warning" className="m-2">
-                {product.value}
+                {product.quantity}
               </Badge>
               <Button
                 color="danger"
@@ -42,11 +42,11 @@ class Cart extends Component {
                 Delete
               </Button>
             </div>
-          );
+          )
         })}
       </React.Fragment>
-    );
+    )
   }
 }
 
-export default Cart;
+export default Cart
